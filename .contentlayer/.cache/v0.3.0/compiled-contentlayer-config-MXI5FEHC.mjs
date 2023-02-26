@@ -1,10 +1,8 @@
 // contentlayer.config.js
-import { remarkCodeHike } from "@code-hike/mdx";
 import { defineDocumentType, makeSource } from "contentlayer/source-files";
-import { createRequire } from "module";
 import readingTime from "reading-time";
-var require2 = createRequire(import.meta.url);
-var theme = require2("shiki/themes/monokai.json");
+import codeTitle from "rehype-code-titles";
+import highlight from "rehype-prism-plus";
 var computedFields = {
   readingTime: { type: "json", resolve: (doc) => readingTime(doc.body.raw) },
   wordCount: {
@@ -25,20 +23,33 @@ var Writings = defineDocumentType(() => ({
     publishedAt: { type: "string", required: true },
     description: { type: "string" },
     tags: { type: "list", of: { type: "string" }, required: true },
-    thumbnail: { type: "string", required: true }
+    thumbnail: { type: "string" }
+  },
+  computedFields
+}));
+var DailyLesson = defineDocumentType(() => ({
+  name: "DailyLesson",
+  filePathPattern: "daily-lessons/*.mdx",
+  contentType: "mdx",
+  fields: {
+    title: { type: "string", required: true },
+    publishedAt: { type: "string", required: true },
+    description: { type: "string" },
+    tags: { type: "list", of: { type: "string" }, required: true },
+    thumbnail: { type: "string" }
   },
   computedFields
 }));
 var contentLayerConfig = makeSource({
   contentDirPath: "contents",
-  documentTypes: [Writings],
+  documentTypes: [Writings, DailyLesson],
   mdx: {
-    remarkPlugins: [[remarkCodeHike, { theme }]],
-    rehypePlugins: []
+    remarkPlugins: [],
+    rehypePlugins: [codeTitle, highlight]
   }
 });
 var contentlayer_config_default = contentLayerConfig;
 export {
   contentlayer_config_default as default
 };
-//# sourceMappingURL=compiled-contentlayer-config-3M54UR37.mjs.map
+//# sourceMappingURL=compiled-contentlayer-config-MXI5FEHC.mjs.map

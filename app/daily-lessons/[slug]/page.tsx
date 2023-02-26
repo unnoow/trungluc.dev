@@ -7,27 +7,29 @@ import { useMDXComponent } from "next-contentlayer/hooks";
 
 import { SingleWriting, Tag } from "#/components";
 import { WRITING_DATE } from "#/constants/date.constants";
-import { allWritings } from "#/contentlayer/generated";
+import { allDailyLessons } from "#/contentlayer/generated";
 
-type WritingPageProps = {
+type DailyLessonPageProps = {
   params: { slug: string };
 };
 
-export default function WritingPage({ params }: WritingPageProps) {
-  const writing = allWritings.find((writing) => writing.slug === params.slug);
-  const MDXContent = useMDXComponent(writing?.body.code ?? "");
+export default function DailyLessonPage({ params }: DailyLessonPageProps) {
+  const dailyLesson = allDailyLessons.find(
+    (dailyLesson) => dailyLesson.slug === params.slug
+  );
+  const MDXContent = useMDXComponent(dailyLesson?.body.code ?? "");
 
   return (
     <SingleWriting className="bg-white rounded-3xl py-20 shadow">
       <div className="prose mx-auto">
         <div className="flex gap-3 mb-2">
-          {writing?.tags.map((tag) => (
+          {dailyLesson?.tags.map((tag) => (
             <Tag key={tag}>{tag}</Tag>
           ))}
         </div>
-        <h1 className="mb-2">{writing?.title}</h1>
+        <h1>{dailyLesson?.title}</h1>
         <div className="mb-14">
-          {dayjs(writing?.publishedAt).format(WRITING_DATE)}
+          {dayjs(dailyLesson?.publishedAt).format(WRITING_DATE)}
         </div>
         <MDXContent components={{}} />
       </div>
@@ -36,7 +38,7 @@ export default function WritingPage({ params }: WritingPageProps) {
 }
 
 export async function generateStaticParams() {
-  return allWritings.map((writing) => ({
+  return allDailyLessons.map((writing) => ({
     slug: writing.slug,
   }));
 }

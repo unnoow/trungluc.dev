@@ -38,9 +38,16 @@ export default function RootLayout({ children }: PropsWithChildren) {
             unnoow
           </Link>
           <nav>
-            <ul>
+            <ul className="flex gap-4">
               <li>
-                <Link href="/writings">writings.</Link>
+                <Link className="hover:text-blue-700" href="/writings">
+                  writings.
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-blue-700" href="/daily-lessons">
+                  today-i-learns.
+                </Link>
               </li>
             </ul>
           </nav>
