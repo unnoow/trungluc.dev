@@ -2,35 +2,36 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Writing } from "#/app/types/writing.types";
 import { Tag } from "#/components";
 import { WRITING_DATE } from "#/constants/date.constants";
+import { Writing } from "#/contentlayer/generated";
 
 type WritingCardProps = {
-  post: Writing;
+  writing: Writing;
 };
 
-export const WritingCard = ({ post }: WritingCardProps) => {
+export const WritingCard = ({ writing }: WritingCardProps) => {
   return (
-    <Link href={`/writings/${post.slug}`} legacyBehavior>
+    <Link href={`/writings/${writing.slug}`} legacyBehavior>
       <article
-        key={post.id}
+        key={writing.slug}
         className="overflow-hidden mb-6 md:mb-8 rounded-2xl bg-white hover:shadow-lg transition-shadow cursor-pointer"
       >
-        {post.thumbnail && (
+        {writing.thumbnail && (
           <div className="relative w-full pb-[66%] lg:pb-[50%] bg-gray-200">
             <Image
-              src={post.thumbnail}
+              src={writing.thumbnail}
               className="object-cover"
-              layout="fill"
-              alt={post.title}
+              fill
+              sizes="100vw"
+              alt={writing.title}
             />
           </div>
         )}
         <div className="p-4">
           <header className="flex flex-col justify-between md:flex-row md:items-baseline">
             <h2 className="text-lg md:text-xl font-medium mb-2 cursor-pointer text-black">
-              {post.title}
+              {writing.title}
             </h2>
           </header>
 
@@ -55,18 +56,18 @@ export const WritingCard = ({ post }: WritingCardProps) => {
               )} */}
 
             <div className="text-sm text-gray-500 md:ml-0">
-              {dayjs(post.updatedAt ?? post.createdAt).format(WRITING_DATE)}
+              {dayjs(writing.publishedAt).format(WRITING_DATE)}
             </div>
           </div>
 
           <main className="mb-4">
             <p className="hidden md:block leading-8 text-gray-700">
-              {post.summary}
+              {writing.description}
             </p>
           </main>
           <div className="flex gap-2">
-            {post.tags &&
-              post.tags.map((tag: string, idx: number) => (
+            {writing.tags &&
+              writing.tags.map((tag: string, idx: number) => (
                 <Tag key={idx}>{tag}</Tag>
               ))}
           </div>

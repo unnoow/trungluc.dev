@@ -1,6 +1,7 @@
 import "#/styles/index.css";
 
-import { Plus_Jakarta_Sans, Space_Mono } from "next/font/google";
+import { Fira_Code, Plus_Jakarta_Sans, Space_Mono } from "next/font/google";
+import Link from "next/link";
 import { PropsWithChildren } from "react";
 
 import { twcx } from "#/shared/utils";
@@ -12,9 +13,9 @@ const fontSans = Plus_Jakarta_Sans({
   preload: true,
 });
 
-const fontMono = Space_Mono({
+const fontMono = Fira_Code({
   variable: "--font-mono",
-  subsets: ["vietnamese"],
+  subsets: ["latin"],
   display: "block",
   weight: ["400", "700"],
   preload: true,
@@ -31,10 +32,18 @@ export default function RootLayout({ children }: PropsWithChildren) {
       lang="vi"
       className={twcx(fontSans.variable, fontMono.variable, "font-medium")}
     >
-      <body className="min-h-screen bg-slate-200/70">
+      <body className="min-h-screen bg-slate-100">
         <header className="flex items-center justify-between py-5 max-w-5xl mx-auto px-4">
-          <div className="text-xl font-bold">unnoow</div>
-          <div>menu</div>
+          <Link className="text-xl font-bold" href="/">
+            unnoow
+          </Link>
+          <nav>
+            <ul>
+              <li>
+                <Link href="/writings">writings.</Link>
+              </li>
+            </ul>
+          </nav>
         </header>
 
         <main className="max-w-5xl mx-auto px-4">{children}</main>

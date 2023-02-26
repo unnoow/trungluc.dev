@@ -21,6 +21,8 @@
       }
     ],
     "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error"
+    "simple-import-sort/exports": "error",
+    "prefer-template": "error",
+    "@next/next/no-html-link-for-pages": ["error", "app/"]
   }
 }

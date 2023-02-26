@@ -10,6 +10,7 @@ export const ProfileCard = () => {
             src="https://morethan-log.vercel.app/avatar.svg"
             alt="trungluc"
             fill
+            sizes="100vw"
           />
         </div>
         <div className="bg-white p-2 flex flex-col items-center">
@@ -17,7 +18,9 @@ export const ProfileCard = () => {
           <div className="text-sm mb-4 text-gray-500 dark:text-gray-400">
             frontend developer
           </div>
-          <div className="text-sm mb-2">I develop everything using node.</div>
+          <div className="text-sm mb-2 text-center">
+            I develop everything using node.
+          </div>
         </div>
       </div>
     </div>
